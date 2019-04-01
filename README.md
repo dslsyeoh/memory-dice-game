@@ -15,3 +15,8 @@ Feature
 Enhancement
 - Limit number of hint allowed
 - Enhance minutes involved in given of time instead of seconds only.
+
+
+New update:
+- Added enhancement for minutes involved in given of time instead of seconds only.
+- Introduce TimeConverter. Refer to https://github.com/dslsyeoh/time-converter
