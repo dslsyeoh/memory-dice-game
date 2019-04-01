@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  ~ Written by Steven Yeoh
+  ~
+  ~ Copyright (c) 2019.
+  -->
+
+<?import org.tbee.javafx.scene.layout.fxml.MigPane?>
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.my.memory.dice.game.controllers.MemoryDiceGameController">
+
+    <fx:define>
+        <Pagination fx:id="pagination" MigPane.cc="growx"/>
+    </fx:define>
+
+    <center>
+        <MigPane layout="ins 10, wrap" cols="[grow]" rows="[]">
+            <MigPane layout="ins 10" cols="[][]" MigPane.cc="grow">
+                <Label text="Number of Containers (1 - 100)"/>
+                <TextField fx:id="numberOfContainer" promptText="Enter numbers" MigPane.cc="wrap"/>
+                <Label text="Number of Dice (4 - 10)"/>
+                <TextField fx:id="numberOfDice" promptText="Enter numbers"/>
+                <Button text="Submit" onAction="#submit"/>
+                <Button fx:id="btnHint" text="Hint" onAction="#hint"/>
+            </MigPane>
+            <MigPane fx:id="memoryPane" layout="ins 10, wrap" cols="[grow]" MigPane.cc="grow">
+                <TableView fx:id="table" MigPane.cc="growx" fixedCellSize="30">
+                    <columns>
+                        <TableColumn fx:id="numberColumn" text="Container #"/>
+                        <TableColumn fx:id="diceColumn" text="Dice"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </MigPane>
+            <MigPane fx:id="questionPane" layout="ins 10, wrap" cols="[]10[]10[]" visible="false" MigPane.cc="grow"/>
+        </MigPane>
+    </center>
+</BorderPane>
