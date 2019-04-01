@@ -9,6 +9,7 @@ package com.my.memory.dice.game.controllers;
 import com.my.memory.dice.game.dto.DiceContainer;
 import com.my.memory.dice.game.services.DiceRollerService;
 import com.my.memory.dice.game.utils.IntegerListTableCellFactory;
+import com.my.memory.dice.game.utils.TimeConverter;
 import javafx.animation.PauseTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
@@ -114,9 +115,13 @@ public class MemoryDiceGameController implements Initializable
         activateTimer(true, 5);
     }
 
-    private int calculateBufferTime(int containerCount, int diceCount)
+    private int retrieveBufferTime(int containerCount, int diceCount)
     {
-        return containerCount * diceCount;
+        if(containerCount > 5 && containerCount < 20) return diceCount >= 3 ? 60 : 30;
+        if(containerCount >= 20 && containerCount <= 30) return diceCount >= 3 ? 90 : 45;
+        else if(containerCount > 30 && containerCount <= 50) return diceCount >= 3 ? 120 : 60;
+        else if(containerCount > 50) return diceCount >= 3 ? 240 : 120;
+        else return diceCount >= 3 ? 10 : 5;
     }
 
     private void activateTimer(int bufferTime)
@@ -145,8 +150,8 @@ public class MemoryDiceGameController implements Initializable
             containerCount = Math.min(containerCount, MAX_CONTAINER_NUMBER);
             diceCount = Math.min(diceCount, MAX_DICE_NUMBER);
 
-            int bufferTime = calculateBufferTime(containerCount, diceCount);
-            String contextText = String.format("You got %s seconds to memorize", bufferTime);
+            int bufferTime = retrieveBufferTime(containerCount, diceCount);
+            String contextText = String.format("You got %s to memorize.", TimeConverter.bySeconds(bufferTime));
             prompt(AlertType.INFORMATION, "Game Rule", contextText);
 
             diceRoller.roll(containerCount, diceCount);
